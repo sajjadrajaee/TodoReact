@@ -47,15 +47,15 @@ class TodoContainer extends React.Component {
   setUpdate = (updatedText, id) => {
     this.setState({
       todos: this.state.todos.map(todo => {
-        if(todo.id === id){
+        if (todo.id === id) {
           todo.title = updatedText;
         }
         return todo
       })
     })
   }
-  componentDidUpdate(prevState,prevProps) {
-    if(prevState.todos !== this.state.todos) {
+  componentDidUpdate(prevState, prevProps) {
+    if (prevState.todos !== this.state.todos) {
       const temp = JSON.stringify(this.state.todos);
       localStorage.setItem("Todos", temp);
     }
@@ -64,21 +64,24 @@ class TodoContainer extends React.Component {
   componentDidMount() {
     const temp = localStorage.getItem("Todos");
     const loadTodos = JSON.parse(temp);
-    if(loadTodos) {
+    if (loadTodos) {
       this.setState({
-        todos:loadTodos,
+        todos: loadTodos,
       })
     }
   }
   render() {
     return (
-      <div className="container">
-        <div className="inner">
-          <Header />
-          <InputTodo addTodoItemProps={this.addTodoItem} />
-          <TodoList todos={this.state.todos} handleChangeProps={this.handleChange} deleteTodoProps={this.delTodo} setUpdate={this.setUpdate}/>
+      <>
+        <div className="container">
+          <div className="inner">
+            <Header />
+            <InputTodo addTodoItemProps={this.addTodoItem} />
+            <TodoList todos={this.state.todos} handleChangeProps={this.handleChange} deleteTodoProps={this.delTodo} setUpdate={this.setUpdate} />
+          </div>
         </div>
-      </div>
+      </>
+
     );
   }
 }
